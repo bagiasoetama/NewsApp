@@ -17,15 +17,12 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.purple,
         accentColor: Color(0xFFFEF9EB),
       ),
-      routes: <String, WidgetBuilder>{
-        '/signup': (BuildContext context) => new SignupPage()
-      },
+      home: MyHomePage(),
 
     );
   }
 }
-final emailController = TextEditingController();
-final passwordController = TextEditingController();
+
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -137,6 +134,7 @@ class _MyHomePageState extends State {
                     child: Column(
                       children: <Widget>[
                         TextField(
+                          controller: emailController,
                           decoration: InputDecoration(
                               labelText: 'EMAIL',
                               labelStyle: TextStyle(
@@ -149,6 +147,7 @@ class _MyHomePageState extends State {
                         ),
                         SizedBox(height: 20.0),
                         TextField(
+                          controller: passwordController,
                           decoration: InputDecoration(
                               labelText: 'PASSWORD',
                               labelStyle: TextStyle(
@@ -176,27 +175,15 @@ class _MyHomePageState extends State {
                           ),
                         ),
                         SizedBox(height: 40.0),
-                        Container(
-                          height: 40.0,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(20.0),
-                            shadowColor: Colors.purpleAccent,
-                            color: Colors.purple,
-                            elevation: 7.0,
-                            child: GestureDetector(
-                              onTap: userLogin(),
-                              child: Center(
-                                child: Text(
-                                  'LOGIN',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Montserrat'),
-                                ),
-                              ),
-                            ),
-                          ),
+                        RaisedButton(
+                          onPressed: () {
+                            userLogin();
+                          },
+                          color: Colors.purple,
+                          textColor: Colors.white,
+                          child: Text('Register'),
                         ),
+
                       ],
                     )),
                 SizedBox(height: 15.0),
@@ -210,7 +197,7 @@ class _MyHomePageState extends State {
                     SizedBox(width: 5.0),
                     InkWell(
                       onTap: () {
-                        Navigator.of(context).pushNamed('/signup');
+                        SignupPage();
                       },
                       child: Text(
                         'Register',

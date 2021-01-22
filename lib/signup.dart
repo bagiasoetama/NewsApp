@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class SignupPage extends StatefulWidget {
   @override
@@ -6,6 +8,50 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  bool visible = false ;
+
+  Future userRegistration() async{
+
+    setState(() {
+      visible = true;
+    });
+
+    String name = nameController.text;
+    String email = emailController.text;
+    String password = passwordController.text;
+
+    var url = 'https://flutterprojectcrudamelia.000webhostapp.com/register_user.php';
+    var data = {'name': name, 'email': email, 'password': password};
+    var response = await http.post(url, body: json.encode(data));
+    var message = jsonDecode(response.body);
+
+    if(response.statusCode == 200){
+      setState(() {
+        visible = false;
+      });
+    }
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: new Text(message),
+            actions: <Widget>[
+              FlatButton(
+                child: new Text("OK"),
+                onPressed: (){
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -41,6 +87,7 @@ class _SignupPageState extends State<SignupPage> {
               child: Column(
                 children: <Widget>[
                   TextField(
+                    controller: emailController,
                     decoration: InputDecoration(
                         labelText: 'EMAIL',
                         labelStyle: TextStyle(
@@ -54,6 +101,7 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                   SizedBox(height: 10.0),
                   TextField(
+                    controller: passwordController,
                     decoration: InputDecoration(
                         labelText: 'PASSWORD ',
                         labelStyle: TextStyle(
@@ -66,6 +114,7 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                   SizedBox(height: 10.0),
                   TextField(
+                    controller: nameController,
                     decoration: InputDecoration(
                         labelText: 'NICK NAME ',
                         labelStyle: TextStyle(
@@ -76,26 +125,14 @@ class _SignupPageState extends State<SignupPage> {
                             borderSide: BorderSide(color: Colors.purple))),
                   ),
                   SizedBox(height: 50.0),
-                  Container(
-                      height: 40.0,
-                      child: Material(
-                        borderRadius: BorderRadius.circular(20.0),
-                        shadowColor: Colors.purpleAccent,
-                        color: Colors.purple,
-                        elevation: 7.0,
-                        child: GestureDetector(
-                          //onTap: () => HomeScreen(),
-                          child: Center(
-                            child: Text(
-                              'SIGNUP',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat'),
-                            ),
-                          ),
-                        ),
-                      )),
+                  RaisedButton(
+                    onPressed: () {
+                      userRegistration();
+                    },
+                    color: Colors.purple,
+                    textColor: Colors.white,
+                    child: Text('Register'),
+                  ),
                   SizedBox(height: 20.0),
                   Container(
                     height: 40.0,
