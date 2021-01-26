@@ -67,7 +67,7 @@ class _MyHomePageState extends State {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => HomeScreen(email: emailController.text))
+              builder: (context) => Home(email: emailController.text))
       );
     } else {
       // If Email or Password did not Matched.
@@ -181,7 +181,7 @@ class _MyHomePageState extends State {
                           },
                           color: Colors.purple,
                           textColor: Colors.white,
-                          child: Text('Register'),
+                          child: Text('Login'),
                         ),
 
                       ],
@@ -197,7 +197,9 @@ class _MyHomePageState extends State {
                     SizedBox(width: 5.0),
                     InkWell(
                       onTap: () {
-                        SignupPage();
+                        Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => SignupPage()),
+                        );
                       },
                       child: Text(
                         'Register',
