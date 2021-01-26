@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 ListData;
 void getData() async{
-  String url = 'http://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=d15b394582754fe89139ec24e94a4de7';
+  String url = 'https://flutterprojectcrudamelia.000webhostapp.com/top-headlines.json';
   http.Response response = await http.get(url);
   if(response.statusCode == 200){
     var decodejson = jsonDecode(response.body);
