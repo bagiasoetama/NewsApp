@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DetailsPage extends StatefulWidget{
   final String url,
     urltoimage,
-    tittle,
+    title,
     content,
     publishdate,
     author,
@@ -15,11 +15,11 @@ class DetailsPage extends StatefulWidget{
   this.content,
   this.description,
   this.publishdate,
-  this.tittle
+  this.title
   });
   @override
   _DetailsPageState createState() => _DetailsPageState();
-  
+
 }
 
 class _DetailsPageState extends State<DetailsPage>{
@@ -52,7 +52,7 @@ class _DetailsPageState extends State<DetailsPage>{
                     child: Column(
                       children: <Widget>[
                         Text(
-                          widget.tittle,
+                          widget.title,
                           style: TextStyle(
                             fontWeight: FontWeight.w800,
                             fontSize: 25,

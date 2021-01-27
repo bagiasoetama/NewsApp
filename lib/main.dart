@@ -65,9 +65,7 @@ class _MyHomePageState extends State {
 
       // Navigate to Profile Screen & Sending Email to Next Screen.
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Home(email: emailController.text))
+        context, MaterialPageRoute(builder: (context) => HomeScreen()),
       );
     } else {
       // If Email or Password did not Matched.
