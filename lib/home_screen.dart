@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   List data;
   void getdata() async {
     String url =
-        'http://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=d15b394582754fe89139ec24e94a4de7';
+        'http://personels.000webhostapp.com/public/MobileAPI/GetDataAPI';
     http.Response response = await http.get(url);
     if (response.statusCode == 200) {
       var decodedjson = jsonDecode(response.body);
@@ -201,19 +201,30 @@ class _HomePageState extends State<HomePage> {
             Icon(Icons.search),
             Icon(Icons.bookmark_border),
             CircleAvatar(
-              backgroundColor: Colors.deepOrange,
-              child: Text(
-                'SB',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+              backgroundColor: Colors.purple,
+              child: InkWell(
+                child:
+                Text(
+                  'U',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
                 ),
-              ),
+                onTap: () {
+                  Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Update()),
+                  );
+                },
+    )
+
               //  image: Image.asset(''),
             ),
+
           ],
         )
       ],
     );
+
   }
 }
