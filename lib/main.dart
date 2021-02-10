@@ -35,48 +35,45 @@ class _MyHomePageState extends State {
   final passwordController = TextEditingController();
 
   Future userLogin() async {
-    // Showing CircularProgressIndicator.
+
     setState(() {
       visible = true;
     });
 
-    // Getting value from Controller
+
     String email = emailController.text;
     String password = passwordController.text;
 
-    // SERVER LOGIN API URL
+
     var url = 'https://flutterprojectcrudamelia.000webhostapp.com/login_user.php';
 
-    // Store all data with Param Name.
+
     var data = {'email': email, 'password': password};
 
-    // Starting Web API Call.
+
     var response = await http.post(url, body: json.encode(data));
 
-    // Getting Server response into variable.
+
     var message = jsonDecode(response.body);
 
-    // If the Response Message is Matched.
+
     if (message == 'Login Matched') {
-      // Hiding the CircularProgressIndicator.
+
       setState(() {
         visible = false;
       });
 
-      // Navigate to Profile Screen & Sending Email to Next Screen.
+
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => HomeScreen(email: emailController.text))
+        context, MaterialPageRoute(builder: (context) => HomeScreen()),
       );
     } else {
-      // If Email or Password did not Matched.
-      // Hiding the CircularProgressIndicator.
+
       setState(() {
         visible = false;
       });
 
-      // Showing Alert Dialog with Response JSON Message.
+
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -181,7 +178,7 @@ class _MyHomePageState extends State {
                           },
                           color: Colors.purple,
                           textColor: Colors.white,
-                          child: Text('Register'),
+                          child: Text('Login'),
                         ),
 
                       ],
@@ -197,7 +194,9 @@ class _MyHomePageState extends State {
                     SizedBox(width: 5.0),
                     InkWell(
                       onTap: () {
-                        SignupPage();
+                        Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => SignupPage()),
+                        );
                       },
                       child: Text(
                         'Register',
